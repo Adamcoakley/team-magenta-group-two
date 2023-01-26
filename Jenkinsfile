@@ -8,10 +8,10 @@ pipeline {
                 sh "ls"
                 sh "cd scripts"
                 // install ansible
-                sh "sudo chmod +x install-ansible.sh"
+                sh "chmod +x install-ansible.sh"
                 sh "./install-ansible.sh"
                 //install terraform
-                sh "sudo chmod +x install-terraform.sh"
+                sh "chmod +x install-terraform.sh"
                 sh "./install-terraform.sh"
                 sh "cd .."
                 
