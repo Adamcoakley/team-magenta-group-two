@@ -38,14 +38,16 @@ pipeline {
         }
         stage('build and push docker image'){
             steps {
+                // login to docker 
+                sh "docker login "
                 dir('spring-petclinic-angular/'){
                     sh "ls"
-                    sh ''' docker build -t adamcoakley/petclinic-frontend:latest .
-                        docker push adamcoakley/petclinic-frontend:latest '''
+                    sh "docker build -t adamcoakley/petclinic-frontend:latest ."
+                    // sh "docker push adamcoakley/petclinic-frontend:latest"
                 }
                 dir('spring-petclinic-rest/'){
                     sh "docker build -t adamcoakley/petclinic-backend:latest ."
-                    sh "docker push adamcoakley/petclinic-backend:latest"
+                    // sh "docker push adamcoakley/petclinic-backend:latest"
                 } 
             }
         }
