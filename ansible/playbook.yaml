@@ -11,27 +11,36 @@
       service:
           name: nginx
           state: started
-        
-    - name: Install Java
+    - name: "Install docker dependencies"
       apt:
-        name: openjdk-11-jdk
-        state: latest
-        version: openjdk-11-jdk
-
-    - name: Install Docker
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+        - python3
+        - python3-pip
+    - name: "add gpg key"
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: "add repo"
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+    - name: "Install docker engine"
       apt:
-        name: docker
-        state: latest
-        version: latest
-
-    - name: Install Docker Compose
-      shell: curl -sL "https://github.com/docker/compose/releases/download/1.27.4/ docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-    - name: Install npm
-      shell:  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install -y nodejs
-
-    - name: npm self-update
-      command: npm install npm@{{ node_version }} -g  s
+        pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+    - name: "Install with pip"
+      pip:
+        name:
+          - docker
+          - jsondiff
+        executable: pip3
 
 
       
