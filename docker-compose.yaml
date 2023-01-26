@@ -11,7 +11,7 @@ services:
      - "80:80"
    volumes:
     -  type: bind
-       source: ./nginx/nginx.conf
+       source: ./spring-petclinic-nginx/nginx.conf
        target: /etc/nginx/nginx.conf
  frontend:
    container_name: spring-petclinic-angular
