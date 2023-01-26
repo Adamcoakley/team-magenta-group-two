@@ -1,10 +1,13 @@
 ---
 - hosts: webservers
   become: true
-  vars:
-    github_repo: https://github.com/nok911/QA-petclinic-team2
-    node_version: 18.13.0
+  gather_facts: no
   tasks:
+    # wait for system to become reachable, our pipline was timing out 
+    - name: "wait for the system to become reachable"
+      wait_for_connection:
+    - name: "gather facts for first time"
+      setup:
     # install docker dependencies
     - name: "Install docker dependencies"
       apt:
