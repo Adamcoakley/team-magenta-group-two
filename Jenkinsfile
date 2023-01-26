@@ -5,8 +5,8 @@ pipeline {
         stage('Install Dependencise') {
             steps {
                 echo 'Installing dependencies....'
-                sh "ls"
                 sh "cd scripts"
+                sh "ls"
                 // install ansible
                 sh "chmod +x install-ansible.sh"
                 sh "./install-ansible.sh"
