@@ -1,6 +1,9 @@
 ---
 - hosts: webservers
   become: true
+  vars:
+    github_repo: https://github.com/nok911/QA-petclinic-team2
+    node_version: 18.13.0
   tasks:
     - name: ensure nginx is at the latest version
       apt: name=nginx state=latest
@@ -9,4 +12,40 @@
           name: nginx
           state: started
 
-    
+    - name: Install curl
+      yum:
+        name: curl
+        state: present
+
+    - name: Install wget
+        yum:
+          name: wget
+          state: present
+
+    - name: Install Java
+      apt:
+        name: openjdk-11-jdk
+        state: latest
+        version: openjdk-11-jdk
+
+    - name: Install Docker
+      apt:
+        name: docker
+        state: latest
+        version: latest
+
+    - name: Install Docker Compose
+      shell: curl -sL "https://github.com/docker/compose/releases/download/1.27.4/ docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+    - name: Install npm
+      shell:  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install -y nodejs
+
+    - name: npm self-update
+      command: npm install npm@{{ node_version }} -g  
+
+    - name: Get EC2 Instance IPs
+        command: terraform output ec2_instance_ip
+        register: ec2_instance_ip
+        changed_when: false
+
+      
