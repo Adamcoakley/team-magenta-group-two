@@ -37,13 +37,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Docker Images..'
+                echo 'Docker images..'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Ansible..'
-                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'ansible/inventory.yaml', playbook: 'ansible/playbook.yaml'
+                echo 'Ansible connection..'
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: './ansible/inventory.yaml', playbook: './ansible/playbook.yaml'
             }
         }
     }
