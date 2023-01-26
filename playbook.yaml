@@ -3,7 +3,7 @@
   become: true
   gather_facts: no
   tasks:
-    # wait for system to become reachable, our pipline was timing out 
+      # wait for system to become reachable, our pipline was timing out 
     - name: "wait for the system to become reachable"
       wait_for_connection:
     - name: "gather facts for first time"
