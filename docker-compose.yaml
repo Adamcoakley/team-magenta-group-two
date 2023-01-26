@@ -3,7 +3,7 @@ services:
  nginx:
    container_name: spring-petclinic-nginx
    build: ./spring-petclinic-nginx
-   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-nginx
+   image: adamcoakley/team-magenta-group-two:nginx
    restart: unless-stopped
    networks:
      -  petclinic-net
@@ -11,12 +11,12 @@ services:
      - "80:80"
    volumes:
     -  type: bind
-       source: ./spring-petclinic-nginx/nginx.conf
+       source: ./nginx/nginx.conf
        target: /etc/nginx/nginx.conf
  frontend:
    container_name: spring-petclinic-angular
    build: ./spring-petclinic-angular
-   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-angular
+   image: adamcoakley/team-magenta-group-two:frontend
    restart: unless-stopped
    deploy:
      replicas: 1
@@ -28,7 +28,7 @@ services:
    #  - "8080:8080"
  backend:
    build: ./spring-petclinic-rest
-   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-rest
+   image: adamcoakley/team-magenta-group-two:backend
    container_name: spring-petclinic-rest
    restart: unless-stopped
    deploy:
@@ -39,7 +39,7 @@ services:
      - "9966:9966"
  db:
     build: ./spring-petclinic-rest/petclinic-db
-    image: ciarafennessy/qa-petclinic-team2:petclinic-db
+    image: adamcoakley/team-magenta-group-two:petclinic-db
     container_name: petclinic-db
     restart: always
     environment:
