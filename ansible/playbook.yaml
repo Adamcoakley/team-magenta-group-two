@@ -18,9 +18,9 @@
         state: present
 
     - name: Install wget
-        yum:
-          name: wget
-          state: present
+      yum:
+        name: wget
+        state: present
 
     - name: Install Java
       apt:
