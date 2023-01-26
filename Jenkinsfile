@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                     withCredentials([string(credentialsId: 'DockerHubPwd', variable: 'DockerHubPwd')]) {
-                        sh 'docker login -u adamcoakley -p ${DockerHubPwd}'
+                        sh 'sudo docker login -u adamcoakley -p ${DockerHubPwd}'
                     }
                     sh "sudo docker push adamcoakley/petclinic-backend:latest"
                     sh "sudo docker push adamcoakley/petclinic-frontend:latest"
