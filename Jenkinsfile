@@ -15,13 +15,6 @@ pipeline {
                     sh "sudo chmod +x install-terraform.sh"
                     sh "./install-terraform.sh"
                 }
-                // added check to see if terraform tfstate exists
-                // then run terraform destroy (destroys all network/ec2)
-                script{
-                    if(fileExists('terraform/terraform.tfstate')){
-                        sh 'terraform -chdir="terraform/" destroy -auto-approve'
-                    }
-                }
             }
         }
         stage('Run Terraform') {
