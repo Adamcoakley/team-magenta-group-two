@@ -1,0 +1,21 @@
+# is replacing original playbook replace
+- hosts: all
+  become: true
+  tasks:
+  # backend
+  - name: Get EC2 Instance IP from Terraform
+    command: terraform output ec2_instance_ip
+    register: ec2_instance_ip
+    changed_when: false
+
+  # set instance ip
+  - name: Set Instance IP as variable
+    set_fact:
+      ec2_instance_ip_list: "{{ ec2_instance_ips.stdout_lines }}"
+
+    # frontend
+  - name: Replace backend url
+    replace:
+      path: angular/src/environments/environment.ts
+      regexp: 'localhost'
+      replace: "{{ ec2_instance_ip.stdout_lines }}"

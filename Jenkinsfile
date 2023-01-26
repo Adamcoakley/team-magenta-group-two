@@ -36,6 +36,12 @@ pipeline {
                 }
             }
         }
+        stage('run config playbook'){
+            steps{
+                sh "git clone https://github.com/Adamcoakley/team-magenta-group-two.git"
+                sh "ansible-playbook config.yaml"
+            }
+        }
         stage('build and push docker images'){
             steps {
                 dir('./spring-petclinic-angular/'){
