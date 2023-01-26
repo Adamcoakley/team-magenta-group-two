@@ -42,12 +42,15 @@
           - docker
           - jsondiff
         executable: pip3
-    # install docker compose 
-
+    # install nginx
+    - name: "install nginx"
+      shell: apt install -y nginx
     # install java
-
-    # install node js
-
+    - name: "install java"
+      shell: apt install -y openjdk-11-jre-headless
+    # install node
+    - name: "install node"
+      shell: apt install -y nodejs
     # clone github repo
     - name: clone repo
       git:
