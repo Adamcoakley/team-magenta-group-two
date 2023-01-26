@@ -8,11 +8,11 @@ pipeline {
                 dir("scripts") {
                     // install ansible
                     sh "ls"
-                    sh "chmod +x install-ansible.sh"
+                    sh "sudo chmod +x install-ansible.sh"
                     sh "./install-ansible.sh"
                     //install terraform
                     sh "ls"
-                    sh "chmod +x install-terraform.sh"
+                    sh "sudo chmod +x install-terraform.sh"
                     sh "./install-terraform.sh"
                 }
                 // added check to see if terraform tfstate exists
