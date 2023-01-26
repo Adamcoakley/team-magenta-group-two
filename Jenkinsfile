@@ -36,9 +36,16 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('build and push docker image'){
             steps {
-                echo 'Docker images..'
+                dir('spring-petclinic-angular/'){
+                    sh 'docker build -t adamcoakley/petclinic-frontend:latest .'
+                    sh 'docker push adamcoakley/petclinic-frontend:latest'
+                }
+                dir('spring-petclinic-rest/'){
+                    sh 'docker build -t adamcoakley/petclinic-backend:latest .'
+                    sh 'docker push adamcoakley/petclinic-backend:latest'
+                } 
             }
         }
         stage('Deploy') {
