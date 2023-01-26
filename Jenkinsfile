@@ -36,10 +36,15 @@ pipeline {
                 }
             }
         }
-        stage('build and push docker image'){
+        stage('Install dependencies on EC2') {
+            steps {
+                echo 'Ansible connection..'
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
+            }
+        }
+        stage('build and push docker images'){
             steps {
                 dir('./spring-petclinic-angular/'){
-                    sh "ls"
                     sh "sudo docker build -t adamcoakley/petclinic-frontend:latest ."
                     // sh "docker push adamcoakley/petclinic-frontend:latest"
                 }
@@ -49,10 +54,20 @@ pipeline {
                 } 
             }
         }
+        stage('Push image to Hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'DockerHubPwd', variable: 'DockerHubPwd')]) {
+                        sh 'docker login -u adamcoakley -p ${DockerHubPwd}'
+                    }
+                    sh "sudo docker push adamcoakley/petclinic-backend:latest"
+                    sh "sudo docker push adamcoakley/petclinic-frontend:latest"
+                }
+            }
+        }
         stage('Deploy') {
             steps {
-                echo 'Ansible connection..'
-                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
+                echo 'Deploy..'
             }
         }
     }
