@@ -1,8 +1,10 @@
+# frontend instance
 resource "aws_instance" "frontend" {
   ami           = "ami-0c68b55d1c875067e"
   instance_type = "t3.medium"
   availability_zone = "eu-west-1a"
   key_name = "AMSKey"
+  
 
   network_interface {
     # device index (required)
@@ -14,14 +16,15 @@ resource "aws_instance" "frontend" {
   user_data = <<-EOF
               #!/bin/bash
               sudo apt update -y
-              echo group-two-server started
+              echo frontend server started
               EOF 
 
   tags = {
-    Name = "group-two-server"
+    Name = "frontend"
   }
 }
 
+# backend instance
 resource "aws_instance" "backend" {
   ami           = "ami-0c68b55d1c875067e"
   instance_type = "t3.medium"
@@ -38,10 +41,10 @@ resource "aws_instance" "backend" {
   user_data = <<-EOF
               #!/bin/bash
               sudo apt update -y
-              echo group-two-server started
+              echo backend server started
               EOF 
 
   tags = {
-    Name = "group-two-server"
+    Name = "backend"
   }
 }
