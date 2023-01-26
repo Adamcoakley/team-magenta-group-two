@@ -11,17 +11,7 @@
       service:
           name: nginx
           state: started
-
-    - name: Install curl
-      yum:
-        name: curl
-        state: present
-
-    - name: Install wget
-      yum:
-        name: wget
-        state: present
-
+        
     - name: Install Java
       apt:
         name: openjdk-11-jdk
@@ -41,7 +31,7 @@
       shell:  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && sudo apt-get install -y nodejs
 
     - name: npm self-update
-      command: npm install npm@{{ node_version }} -g  
+      command: npm install npm@{{ node_version }} -g  s
 
 
       
