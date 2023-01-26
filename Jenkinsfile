@@ -29,7 +29,7 @@ pipeline {
                 echo 'Build infrastructure....'
                 dir("terraform") {
                     sh "terraform init"
-                    sh "terraform plan -auto-approve"
+                    sh "terraform plan"
                     sh "terraform apply -auto-approve"
                 }
             }
