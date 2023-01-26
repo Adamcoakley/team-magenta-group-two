@@ -13,7 +13,7 @@
     set_fact:
       ec2_instance_ip_list: "{{ ec2_instance_ips.stdout_lines }}"
 
-    # frontend
+  # frontend
   - name: Replace backend url
     replace:
       path: angular/src/environments/environment.ts
