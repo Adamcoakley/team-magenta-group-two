@@ -2,9 +2,11 @@
 - hosts: webservers
   become: true
   tasks:
-    - name: Print message if ansible version is greater than 2.7.0
-      debug:
-        msg: "Ansible version is  {{ ansible_version.full }}"
-      when: ansible_version.full >= "2.7.4"
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
 
     
