@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Dependencise') {
+        stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies....'
                 dir("scripts") {
