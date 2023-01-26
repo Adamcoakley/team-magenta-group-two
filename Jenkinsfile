@@ -5,16 +5,18 @@ pipeline {
         stage('Install Dependencise') {
             steps {
                 echo 'Installing dependencies....'
-                sh "cd scripts/"
-                sh "ls"
-                // install ansible
-                sh "chmod +x install-ansible.sh"
-                sh "./install-ansible.sh"
-                //install terraform
-                sh "chmod +x install-terraform.sh"
-                sh "./install-terraform.sh"
-                sh "cd .."
-                
+                dir("ansible") {
+                    // install ansible
+                    sh "ls"
+                    sh "chmod +x install-ansible.sh"
+                    sh "./install-ansible.sh"
+                }
+                dir("terraform") {
+                    //install terraform
+                    sh "ls"
+                    sh "chmod +x install-terraform.sh"
+                    sh "./install-terraform.sh"
+                }
                 // added check to see if terraform tfstate exists
                 // then run terraform destroy (destroys all network/ec2)
                 script{
