@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Ansible connection..'
-                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: './ansible/inventory.yaml', playbook: './ansible/playbook.yaml'
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
             }
         }
     }
