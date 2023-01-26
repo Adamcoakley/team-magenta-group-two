@@ -43,9 +43,5 @@
     - name: npm self-update
       command: npm install npm@{{ node_version }} -g  
 
-    - name: Get EC2 Instance IPs
-      command: terraform output ec2_instance_ip
-      register: ec2_instance_ip
-      changed_when: false
 
       
