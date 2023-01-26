@@ -1,53 +1,46 @@
-version: '3.7'
+version: '3.8'
 services:
-  nginx:
-    container_name: spring-petclinic-nginx
-    build: ./spring-petclinic-nginx
-    image: adamcoakley/team-magenta-group-two:spring-petclinic-nginx
-    restart: unless-stopped
-    deploy:
-      replicas: 1 
-    networks: 
-    - pc_network
-    ports:
-    - target: 80
-      published: 80 
-      protocol: tcp
-    volumes:
-    - type: bind
-      source: ./nginx/nginx.conf
-      target: /etc/nginx/nginx.conf
-  frontend:
-    container_name: spring-petclinic-angular
-    build: ./spring-petclinic-angular
-    image: adamcoakley/team-magenta-group-two:spring-petclinic-angular
-    restart: unless-stopped
-    deploy:
-      replicas: 1
-    depends_on:
-      - backend
-    networks: 
-      - pc_network
-    ports:
-    - target: 8080
-      published: 8080
-      protocol: tcp
-  backend:
-    container_name: spring-petclinic-rest
-    build: ./spring-petclinic-rest
-    image: adamcoakley/team-magenta-group-two:spring-petclinic-rest
-    restart: unless-stopped
-    deploy:
-      replicas: 1
-    networks: 
-      - pc_network
-    ports:
-    - target: 9966
-      published: 9966
-      protocol: tcp
-  db:
-    build: ./spring-petclinic-db
-    image: adamcoakley/team-magenta-group-two:spring-petclinic-db
+ nginx:
+   container_name: spring-petclinic-nginx
+   build: ./spring-petclinic-nginx
+   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-nginx
+   restart: unless-stopped
+   networks:
+     -  petclinic-net
+   ports:
+     - "80:80"
+   volumes:
+    -  type: bind
+       source: ./spring-petclinic-nginx/nginx.conf
+       target: /etc/nginx/nginx.conf
+ frontend:
+   container_name: spring-petclinic-angular
+   build: ./spring-petclinic-angular
+   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-angular
+   restart: unless-stopped
+   deploy:
+     replicas: 1
+   depends_on:
+     - backend
+   networks:
+     - petclinic-net
+  # ports:
+   #  - "8080:8080"
+ backend:
+   build: ./spring-petclinic-rest
+   image: ciarafennessy/qa-petclinic-team2:spring-petclinic-rest
+   container_name: spring-petclinic-rest
+   restart: unless-stopped
+   deploy:
+     replicas: 1
+   networks:
+     - petclinic-net
+   ports:
+     - "9966:9966"
+ db:
+    build: ./spring-petclinic-rest/petclinic-db
+    image: ciarafennessy/qa-petclinic-team2:petclinic-db
+    container_name: petclinic-db
     restart: always
     environment:
       MYSQL_DATABASE: 'petclinic'
@@ -56,16 +49,19 @@ services:
       # You can use whatever password you like
       MYSQL_PASSWORD: 'password'
       # Password for root access
-      MYSQL_ROOT_PASSWORD: 'petclinic'
+      MYSQL_ROOT_PASSWORD: 'password'
     ports:
+      # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
     expose:
+      # Opens port 3306 on the container
       - '3306'
+      # Where our data will be persisted
     volumes:
       - petclinic-db:/var/lib/mysql
-      
+# Names our volume
 volumes:
   petclinic-db:
-
 networks:
-  pc_network:
+  petclinic-net:
+      
