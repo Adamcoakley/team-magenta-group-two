@@ -38,7 +38,7 @@ services:
    ports:
      - "9966:9966"
  db:
-    build: ./spring-petclinic-rest/petclinic-db
+    build: ./spring-petclinic-db
     image: adamcoakley/team-magenta-group-two:petclinic-db
     container_name: petclinic-db
     restart: always
