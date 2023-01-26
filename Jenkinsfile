@@ -38,8 +38,6 @@ pipeline {
         }
         stage('build and push docker image'){
             steps {
-                // login to docker 
-                sh "docker login "
                 dir('spring-petclinic-angular/'){
                     sh "ls"
                     sh "docker build -t adamcoakley/petclinic-frontend:latest ."
