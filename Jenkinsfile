@@ -5,13 +5,11 @@ pipeline {
         stage('Install Dependencise') {
             steps {
                 echo 'Installing dependencies....'
-                dir("ansible") {
+                dir("scripts") {
                     // install ansible
                     sh "ls"
                     sh "chmod +x install-ansible.sh"
                     sh "./install-ansible.sh"
-                }
-                dir("terraform") {
                     //install terraform
                     sh "ls"
                     sh "chmod +x install-terraform.sh"
@@ -29,10 +27,12 @@ pipeline {
         stage('Run Terraform') {
             steps {
                 echo 'Build infrastructure....'
-                sh "cd terraform/"
-                sh "terraform init"
-                sh "terraform plan"
-                sh "terraform apply"
+                dir("terraform") {
+                    sh "cd terraform/"
+                    sh "terraform init"
+                    sh "terraform plan"
+                    sh "terraform apply"
+                }
             }
         }
         stage('Deploy') {
