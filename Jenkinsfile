@@ -28,11 +28,15 @@ pipeline {
             steps {
                 echo 'Build infrastructure....'
                 dir("terraform") {
-                    sh "cd terraform/"
                     sh "terraform init"
                     sh "terraform plan"
                     sh "terraform apply"
                 }
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Docker Images..'
             }
         }
         stage('Deploy') {
