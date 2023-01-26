@@ -7,9 +7,10 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Ansible Test') {
             steps {
-                echo 'Testing..'
+                echo 'Ansible..'
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'ansible/inventory.yaml', playbook: 'ansible/playbook.yaml'
             }
         }
         stage('Deploy') {
