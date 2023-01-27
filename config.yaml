@@ -13,7 +13,7 @@
     set_fact:
       ec2_instance_ip_list: "{{ ec2_instance_ip.stdout }}"
 
-  # frontend
+  # backend url needs dynamic ip 
   - name: Replace backend url
     replace:
       path: spring-petclinic-angular/src/environments/environment.ts

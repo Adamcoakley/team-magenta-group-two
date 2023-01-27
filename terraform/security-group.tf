@@ -5,7 +5,14 @@ resource "aws_security_group" "allow_web_traffic" {
   description = "Allow traffic from the web"
   vpc_id      = aws_vpc.group-two-vpc.id
   
-
+  # ingress - inbound rules
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   ingress {
     description = "HTTP"
     from_port   = 80
