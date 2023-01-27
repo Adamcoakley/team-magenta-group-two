@@ -100,3 +100,12 @@ We devised a list of tasks that would help us fulfill each user-story and execut
 
 Before embarking on the project our team devised a cursory risk assessment (shown below) which outlines possible hazards that the application could encounter. These risks influenced our choices when developing the CI/CD pipeline for the application. For example, we followed the principal of least privilege when assigning policies to the AWS resources and users needed for our pipeline. We also chose to use reputable repository services for our source code and container images as well as avoiding sharing or hardcoding sensitive information.  Going forward we would like to further increase the security and reliability of the application and our CI/CD pipeline by integrating AWS resources such as GuardDuty.
  
+<img width="1246" alt="Screenshot 2023-01-27 at 13 04 29" src="https://user-images.githubusercontent.com/116156151/215093883-92ee5f0e-828a-4a3c-849e-92ea43daa3f3.png">
+
+# Constraints
+
+## Time
+
+In our first sprint we outlined a number of organizational pitfalls that prevented us from deploying a successful MVP such as, poor time management, a lack of clarity and conviction, and major blockers with the technology. In our second iteration we tackled these constraints head on. Our team devised a clear design and plan which we stuck by, we refined our choice of technologies and worked tirelessly to troubleshoot them and deploy the application. The only constraint that we still face is time. Although we are happy with the design of our solution, it required more reinvention than we, perhaps, had time for. Nevertheless, we still perceive it as the best iteration of Sprint 1 that we could have aimed for as it addresses all of the major problems that we were trying to solve for. 
+
+
