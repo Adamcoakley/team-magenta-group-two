@@ -11,11 +11,11 @@
   # set instance ip
   - name: Set Instance IP as variable
     set_fact:
-      ec2_instance_ip_list: "{{ ec2_instance_ips.stdout_lines }}"
+      ec2_instance_ip_list: "{{ ec2_instance_ip.stdout }}"
 
   # frontend
   - name: Replace backend url
     replace:
-      path: angular/src/environments/environment.ts
+      path: spring-petclinic-angular/src/environments/environment.ts
       regexp: 'localhost'
-      replace: "{{ ec2_instance_ip.stdout_lines }}"
+      replace: "{{ ec2_instance_ip.stdout }}"
