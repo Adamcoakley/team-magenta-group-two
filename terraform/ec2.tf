@@ -1,7 +1,7 @@
 resource "aws_instance" "group-two-server" {
    ami           = "ami-0c68b55d1c875067e"
    instance_type = "t3.medium"
-   availability_zone = "eu-west-1a"sfsf
+   availability_zone = "eu-west-1a"
    key_name = "AMSKey"
 
    network_interface {
