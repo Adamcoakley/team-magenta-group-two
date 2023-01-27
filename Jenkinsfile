@@ -73,7 +73,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh "ansible-playbook images.yaml"
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'images.yaml'
             }
         }
     }
