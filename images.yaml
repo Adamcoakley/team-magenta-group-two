@@ -1,0 +1,31 @@
+---
+- hosts: all 
+  become: true
+  gather_facts: no
+  tasks:
+  # docker pull backend image
+    - name: Pull Backend Docker Image
+      docker_image:
+        name: adamcoakley/petclinic-backend:latest
+        source: pull
+    # run backend docker image
+    - name: Run the pulled backend image
+      docker_container:
+        name: my_backend_container
+        image: adamcoakley/petclinic-backend:latest
+        state: started
+        ports:
+          - "9966:9966"
+    # pull frontend docker image
+    - name: Pull Frontend Docker Image
+      docker_image:
+        name: adamcoakley/petclinic-frontend:latest
+        source: pull
+    # run frontend docker image
+    - name: Run the pulled frontend image
+      docker_container:
+        name: my_frontend_container
+        image: adamcoakley/petclinic-frontend:latest
+        state: started
+        ports:
+          - "8080:8080"

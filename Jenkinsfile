@@ -36,7 +36,13 @@ pipeline {
                 }
             }
         }
-        stage('run config playbook'){
+        stage('Install dependencies on EC2') {
+            steps {
+                echo 'Ansible connection..'
+                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
+            }
+        }
+        stage('Run config playbook'){
             steps{
                 sh "git clone https://github.com/Adamcoakley/team-magenta-group-two.git"
                 sh "ansible-playbook config.yaml"
@@ -65,15 +71,9 @@ pipeline {
                 }
             }
         }
-        stage('Install dependencies on EC2') {
-            steps {
-                echo 'Ansible connection..'
-                ansiblePlaybook credentialsId: 'AMSKey', disableHostKeyChecking: true, installation: 'ansible-config', inventory: 'inventory.yaml', playbook: 'playbook.yaml'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploy..'
+        stage('Deploy'){
+            steps{
+                sh "ansible-playbook images.yaml"
             }
         }
     }
