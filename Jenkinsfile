@@ -29,6 +29,7 @@ pipeline {
             steps {
                 echo 'Build infrastructure....'
                 dir("terraform") {
+                    sh "terraform destroy -auto-approve"
                     sh "terraform init"
                     sh "terraform plan"
                     sh "terraform apply -auto-approve"
